@@ -17,6 +17,23 @@ class BaseModel(models.Model):
         abstract = True 
 
 
+class DonationFund(BaseModel):
+    name = models.CharField(max_length=250)
+    desc = models.TextField(null=True)
+    members = models.ManyToManyField(User)
+
+
+    def add_member(self, users):
+        self.members.add(*users)
+
+    def delete(self, *args, **kwargs):
+        self.members.clear()
+        return super(__class__, self).delete(*args, **kwargs)
+
+    class Meta:
+        db_table = 'donation_fund'
+
+
 class Transaction(BaseModel):
     name = models.CharField(max_length=200)
     desc = models.TextField(null=True)
