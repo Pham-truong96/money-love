@@ -14,14 +14,13 @@ class BaseModel(models.Model):
         return super(__class__, self).save(*args, **kwargs)
     
     class Meta:
-        abstract = True 
+        abstract = True
 
 
 class DonationFund(BaseModel):
     name = models.CharField(max_length=250)
     desc = models.TextField(null=True)
     members = models.ManyToManyField(User)
-
 
     def add_member(self, users):
         self.members.add(*users)
