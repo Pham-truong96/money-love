@@ -1,14 +1,17 @@
-from rest_framework import serializer
+from rest_framework import serializers
+from django.contrib.auth.models import User
 
 from src.models import DonationFund
 
 
-class DonationFundSerializer(serializers.ModelSerializer):
-    members = serializers.SerializerMethodField(method_name='get_members')
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'is_superuser']
 
+
+class DonationFundSerializer(serializers.ModelSerializer):
+    members = UserSerializer(read_only=True, many=True)
     class Meta:
         model = DonationFund
-        fields = ['name', 'desc', 'members']
-
-    def get_members(self, members):
-        pass
+        fields = ['id','name', 'desc', 'members']

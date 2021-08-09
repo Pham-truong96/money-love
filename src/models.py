@@ -22,7 +22,7 @@ class DonationFund(BaseModel):
     desc = models.TextField(null=True)
     members = models.ManyToManyField(User)
 
-    def add_member(self, users):
+    def add_member(self,*users):
         self.members.add(*users)
 
     def delete(self, *args, **kwargs):
