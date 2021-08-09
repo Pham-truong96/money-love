@@ -14,7 +14,7 @@ class BaseModel(models.Model):
         return super(__class__, self).save(*args, **kwargs)
     
     class Meta:
-        abstract = True 
+        abstract = True
 
 
 class DonationFund(BaseModel):
@@ -22,8 +22,7 @@ class DonationFund(BaseModel):
     desc = models.TextField(null=True)
     members = models.ManyToManyField(User)
 
-
-    def add_member(self, users):
+    def add_member(self,*users):
         self.members.add(*users)
 
     def delete(self, *args, **kwargs):
